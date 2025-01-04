@@ -4,7 +4,7 @@ import getCroppedImageURL from "../services/image-url";
 import GenreSkeleton from "./GenreSkeleton";
 
 interface Props {
-  onSelectGenre: (genre: Genre) => void;
+  onSelectGenre: (genre: Genre | null) => void;
 }
 
 const GenresList = ({ onSelectGenre }: Props) => {
@@ -15,6 +15,9 @@ const GenresList = ({ onSelectGenre }: Props) => {
   return (
     <List>
       {isLoading && genres.map((d) => <GenreSkeleton key={d} />)}
+      <Button variant={"ghost"} onClick={() => onSelectGenre(null)}>
+        <Text fontSize={"lg"}>All Categories</Text>
+      </Button>
       {data?.map((genre) => (
         <ListItem key={genre.id} paddingY={1}>
           <HStack>
