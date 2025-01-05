@@ -5,23 +5,29 @@ import GenreSkeleton from "./GenreSkeleton";
 
 interface Props {
   onSelectGenre: (genre: Genre | null) => void;
+  selectedGenre: Genre | null;
 }
 
-const GenresList = ({ onSelectGenre }: Props) => {
+const GenresList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
   const genres = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   if (error) return <Text>Oops! Something went wrong :/</Text>;
   return (
     <List>
-      {isLoading && genres.map((d) => <GenreSkeleton key={d} />)}
-      <Button variant={"ghost"} onClick={() => onSelectGenre(null)}>
-        <Text fontSize={"lg"}>All Categories</Text>
+      <Button
+        variant={"ghost"}
+        onClick={() => onSelectGenre(null)}
+        fontWeight={selectedGenre === null ? "bold" : "normal"}
+      >
+        <Text fontSize={"lg"}>All Genres</Text>
       </Button>
+      {isLoading && genres.map((d) => <GenreSkeleton key={d} />)}
       {data?.map((genre) => (
         <ListItem key={genre.id} paddingY={1}>
           <HStack>
             <Button
+              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
               justifyContent={"space-between"}
               variant={"ghost"}
               onClick={() => onSelectGenre(genre)}
