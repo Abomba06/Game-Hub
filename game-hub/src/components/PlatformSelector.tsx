@@ -2,8 +2,13 @@ import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import usePlatform from "../hooks/usePlatform";
 import { useState } from "react";
+import { Platform } from "../hooks/useGames";
 
-const PlatformSelector = () => {
+interface Props {
+  onSelectPlatform: (platform: Platform) => void;
+}
+
+const PlatformSelector = ({ onSelectPlatform }: Props) => {
   const { data } = usePlatform();
   const [selectedPlatform, setSelectedPlatform] = useState("Platforms");
   return (
@@ -15,7 +20,10 @@ const PlatformSelector = () => {
         {data?.map((platform) => (
           <MenuItem
             key={platform.id}
-            onClick={(p) => setSelectedPlatform(platform.name)}
+            onClick={() => {
+              setSelectedPlatform(platform.name);
+              onSelectPlatform(platform);
+            }}
           >
             {platform.name}
           </MenuItem>
