@@ -1,10 +1,11 @@
 import "./App.css";
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
 import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
+import PlatformSelector from "./components/PlatformSelector";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
@@ -33,6 +34,9 @@ function App() {
           </GridItem>
         </Show>
         <GridItem area="main">
+          <Box display={"flex"} justifyContent={"flex-start"} paddingY={2}>
+            <PlatformSelector />
+          </Box>
           <GameGrid selectedGenre={selectedGenre} />
         </GridItem>
       </Grid>
