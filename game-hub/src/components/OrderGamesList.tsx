@@ -1,28 +1,40 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { Children, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { GameQuery } from "../App";
 
-const PlatformSelector = () => {
-  const [selectedFilter, setSelectedFilter] = useState("Relevance");
+interface Props {
+  gameQuery: GameQuery;
+  onSelectOrder: (order: string) => void;
+}
+
+const PlatformSelector = ({ gameQuery, onSelectOrder }: Props) => {
+  const sortOrders = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date Added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release Date" },
+    { value: "metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average Rating" },
+  ];
+
+  const currOrder = sortOrders.find(
+    (order) => order.value === gameQuery.sortOrder
+  );
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<MdKeyboardArrowDown />}>
-        Order by: {selectedFilter}
+        Order by: {currOrder?.label || "Relevance"}
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={() => setSelectedFilter("Relevance")}>
-          Relevance
-        </MenuItem>
-        <MenuItem onClick={() => setSelectedFilter("Name")}>Name</MenuItem>
-        <MenuItem onClick={() => setSelectedFilter("Average Rating")}>
-          Average Rating
-        </MenuItem>
-        <MenuItem onClick={() => setSelectedFilter("Release Date")}>
-          Release Date
-        </MenuItem>
-        <MenuItem onClick={() => setSelectedFilter("Popularity")}>
-          Popularity
-        </MenuItem>
+        {sortOrders.map((order) => (
+          <MenuItem
+            key={order.value}
+            value={order.value}
+            onClick={() => onSelectOrder(order.value)}
+          >
+            {order.label}
+          </MenuItem>
+        ))}
       </MenuList>
     </Menu>
   );
