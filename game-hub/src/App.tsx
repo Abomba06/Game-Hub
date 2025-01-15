@@ -1,5 +1,5 @@
 import "./App.css";
-import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import GameGrid from "./components/GameGrid";
 import GenresList from "./components/GenresList";
@@ -13,6 +13,7 @@ export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   sortOrder: string | null;
+  gameName: string | null;
 }
 
 function App() {
@@ -31,7 +32,9 @@ function App() {
         }}
       >
         <GridItem area="nav">
-          <Navbar />
+          <Navbar
+            setGameName={(gameName) => setGameQuery({ ...gameQuery, gameName })}
+          />
         </GridItem>
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
