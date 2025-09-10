@@ -10,7 +10,9 @@ const SearchBar = ({ setGameName }: Props) => {
       <Input
         placeholder="Search..."
         borderRadius={100}
-        onChange={(p) => setGameName(p.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setGameName(e.target.value)
+        }
       ></Input>
     </>
   );
