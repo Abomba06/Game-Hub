@@ -11,7 +11,7 @@ import { SiNintendo, SiAtari, SiSega, SiD3Dotjs } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs";
 import { Platform } from "../hooks/useGames";
 import { HStack, Icon } from "@chakra-ui/react";
-import { IconType } from "react-icons";
+import { IconType } from "react-icons/lib";
 
 interface props {
   platforms: Platform[];
