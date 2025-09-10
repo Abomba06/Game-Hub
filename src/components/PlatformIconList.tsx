@@ -1,49 +1,40 @@
+import React from "react";
+import { HStack, Icon } from "@chakra-ui/react";
 import {
   FaWindows,
-  FaXbox,
   FaPlaystation,
-  FaLinux,
+  FaXbox,
   FaApple,
+  FaLinux,
   FaAndroid,
 } from "react-icons/fa";
-import { MdPhoneIphone } from "react-icons/md";
-import { SiNintendo, SiAtari, SiSega, SiD3Dotjs } from "react-icons/si";
+import { SiNintendo } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs";
-import { Platform } from "../hooks/useGames";
-import { HStack, Icon } from "@chakra-ui/react";
-import { IconType } from "react-icons/lib";
 
-interface props {
-  platforms: Platform[];
+interface Props {
+  platforms: { id: number; slug: string }[];
 }
 
-const PlatformIconList = ({ platforms }: props) => {
-  const iconMap: { [key: string]: IconType } = {
-    pc: FaWindows,
-    xbox: FaXbox,
-    playstation: FaPlaystation,
-    linux: FaLinux,
-    mac: FaApple,
-    android: FaAndroid,
-    nintendo: SiNintendo,
-    ios: MdPhoneIphone,
-    web: BsGlobe,
-    atari: SiAtari,
-    sega: SiSega,
-    "3do": SiD3Dotjs,
-  };
-
-  return (
-    <HStack>
-      {platforms.map((platform) => (
-        <Icon
-          key={platform.id}
-          as={iconMap[platform.slug]}
-          color={"gray.500"}
-        />
-      ))}
-    </HStack>
-  );
+const iconMap: Record<string, React.ElementType> = {
+  pc: FaWindows,
+  playstation: FaPlaystation,
+  xbox: FaXbox,
+  nintendo: SiNintendo,
+  mac: FaApple,
+  linux: FaLinux,
+  android: FaAndroid,
+  web: BsGlobe,
 };
+
+const PlatformIconList = ({ platforms }: Props) => (
+  <HStack marginY={1}>
+    {(platforms ?? []).map((p) => {
+      const IconComp = iconMap[p.slug];
+      return IconComp ? (
+        <Icon as={IconComp} key={p.id} color="gray.500" />
+      ) : null;
+    })}
+  </HStack>
+);
 
 export default PlatformIconList;
