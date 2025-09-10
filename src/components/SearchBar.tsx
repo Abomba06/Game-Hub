@@ -9,8 +9,7 @@ const SearchBar = ({ setGameName }: Props) => {
     <>
       <Input
         placeholder="Search..."
-        width={40}
-        marginX={3}
+        borderRadius={100}
         onChange={(p) => setGameName(p.target.value)}
       ></Input>
     </>
